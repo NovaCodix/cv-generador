@@ -1,6 +1,6 @@
 # Folio · Generador de CV
 
-Aplicación React + Vite para crear un currículum a partir del JSON de `Scripts - Modelo/cv_data.json`. Funciona en el navegador, sin backend ni cuentas.
+Aplicación React + Vite para crear currículums mediante formularios o JSON. Inicia con secciones vacías definidas en el código, sin datos personales ni archivos JSON precargados. Funciona en el navegador, sin backend ni cuentas.
 
 ## Ejecutar
 
@@ -38,7 +38,7 @@ Los cambios aplicados se guardan en `localStorage` de este navegador. El borrado
 
 ## JSON compatible
 
-Se conserva el esquema del modelo original. `personal` es un objeto de textos; las secciones de experiencia/formación y otras estructuras sugeridas son listas de objetos; `skills` es un objeto de grupos. Se preservan y editan las secciones y campos adicionales.
+La estructura del CV se define en el código de la aplicación. `personal` es un objeto de textos; las secciones de experiencia/formación y otras estructuras sugeridas son listas de objetos; `skills` es un objeto de grupos. Se preservan y editan las secciones y campos adicionales.
 
 ```json
 {
@@ -88,11 +88,11 @@ Se reconocen los temas originales `navy`, `rose`, `burgundy`, `emerald`, `purple
 El nuevo comando usa el mismo modelo y generadores que la aplicación, incluidas secciones personalizadas y configuración `_meta`. Requiere Node.js 22.12+ o 24+.
 
 ```sh
-npm run generate
 npm run generate -- "ruta/mi-cv.json" "outputs"
+npm run generate -- --help
 ```
 
-Produce PDF y Word dentro de `outputs` (excluida de Git). Los scripts Python originales se conservan como referencia; la aplicación y el nuevo comando no necesitan Python, Word ni LibreOffice. Se corrigió el uso de CommonJS del generador Word original para poder ejecutarlo en este proyecto ESM; ese script sigue siendo el generador legado, con sus propias opciones.
+El archivo JSON de entrada es obligatorio: no hay una ruta de ejemplo por defecto. Produce PDF y Word dentro de `outputs` (excluida de Git). El script `scripts/generate-cv.mjs` utiliza las bibliotecas de la aplicación y no depende de archivos externos de ejemplo, Python, Word ni LibreOffice. La carpeta `scripts` sí forma parte del proyecto y debe incluirse en el repositorio.
 
 ## Preparar contenido con IA
 
@@ -123,7 +123,6 @@ src/App.css          Estilos de la aplicación
 src/index.css        Estilos base
 scripts/             Generación desde consola
 tests/               Pruebas de datos y exportaciones
-Scripts - Modelo/    Datos y generadores de referencia
 ```
 
 ## Documentos y ATS
@@ -133,3 +132,9 @@ Los documentos usan una sola columna, encabezados de texto y listas reales en Wo
 El diseño sigue la jerarquía del generador Python de referencia: nombre y título profesional centrados, encabezados compactos con líneas, fechas en cursiva a la derecha, ubicación en la línea del cargo y detalles académicos discretos. Word utiliza tabuladores derechos para las fechas y la ubicación; el PDF posiciona texto real. La alineación de las fechas y el estilo anterior del título profesional no eran restricciones ATS.
 
 La vista continua muestra contenido, orden y estilo. El PDF paginado es la referencia del PDF final; Word puede distribuir las páginas de otra forma según sus fuentes y motor de composición. Las fuentes PDF estándar cubren español y alfabetos latinos occidentales; escrituras como árabe o chino requieren incorporar fuentes Unicode y un motor adecuado.
+
+## Despliegue
+
+En Vercel: framework Vite, comando `npm run build`, directorio de salida `dist`. Incluye en el repositorio `src`, `public`, `scripts`, las pruebas y los archivos de configuración/dependencias de la raíz. Las carpetas de ejemplos locales y los documentos generados no son necesarios para compilar ni ejecutar la aplicación.
+
+En la primera visita el CV está vacío. Si ya habías usado el editor en ese navegador, se restaura tu borrador local; usa «Limpiar todo» para empezar desde cero.

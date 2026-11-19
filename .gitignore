@@ -25,11 +25,5 @@ test-results
 *.sln
 *.sw?
 
-# Scripts
-scripts/*
-scripts
-Scripts - Modelo/*
-outputs/
-
-# Outputs
-outputs/*
+# Local reference files (not application dependencies)
+/Scripts - Modelo/

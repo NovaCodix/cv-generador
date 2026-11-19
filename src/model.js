@@ -1,5 +1,3 @@
-import sample from "../Scripts - Modelo/cv_data.json" with { type: "json" };
-
 export const labels = {
   personal: "Datos personales",
   summary: "Perfil profesional",
@@ -86,10 +84,28 @@ export const defaults = {
   margin: 18,
   paper: "a4",
 };
-export function initialData() {
+// The application always starts from an empty schema, without bundled CV data.
+export function emptyData() {
   return {
-    ...structuredClone(sample),
-    personal: { ...sample.personal, title: "Bachiller de Derecho" },
+    personal: {
+      name: "",
+      title: "",
+      email: "",
+      phone: "",
+      location: "",
+      linkedin: "",
+      github: "",
+      website: "",
+      summary: "",
+    },
+    experience: [],
+    education: [],
+    skills: { technical: [], practices: [] },
+    languages: [],
+    certifications: [],
+    projects: [],
+    volunteering: [],
+    memberships: [],
     _meta: {
       order: [
         "summary",
@@ -97,6 +113,7 @@ export function initialData() {
         "education",
         "skills",
         "languages",
+        "certifications",
         "projects",
         "volunteering",
         "memberships",
@@ -106,15 +123,6 @@ export function initialData() {
       design: { ...defaults },
     },
   };
-}
-export function emptyData() {
-  const data = initialData();
-  data.personal = Object.fromEntries(
-    Object.keys(data.personal).map((key) => [key, ""]),
-  );
-  for (const key of Object.keys(schemas)) if (data[key]) data[key] = [];
-  data.skills = { practices: [] };
-  return data;
 }
 export function validate(data) {
   if (!data || typeof data !== "object" || Array.isArray(data))

@@ -34,7 +34,6 @@ import {
   LoaderCircle,
 } from "lucide-react";
 import {
-  initialData,
   emptyData,
   validate,
   sectionKeys,
@@ -72,9 +71,9 @@ const storageKey = "folio-cv-v1";
 function load() {
   try {
     const saved = localStorage.getItem(storageKey);
-    return saved ? validate(JSON.parse(saved)) : initialData();
+    return saved ? validate(JSON.parse(saved)) : emptyData();
   } catch {
-    return initialData();
+    return emptyData();
   }
 }
 

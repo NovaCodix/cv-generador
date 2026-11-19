@@ -1,8 +1,8 @@
+import { testCv } from "./fixture.mjs";
 import test from "node:test";
 import assert from "node:assert/strict";
 import { unzipSync, strFromU8 } from "fflate";
 import {
-  initialData,
   emptyData,
   designOf,
   validate,
@@ -24,8 +24,8 @@ test("Un CV vacío conserva las estructuras y admite temas del modelo original",
   assert.equal(designOf(d).primary, "#123456");
 });
 
-test("El JSON original se importa sin perder campos y rechaza estructuras inválidas", () => {
-  const d = initialData();
+test("El JSON del usuario se importa sin perder campos y rechaza estructuras inválidas", () => {
+  const d = testCv();
   assert.deepEqual(validate(JSON.parse(JSON.stringify(d))), d);
   assert.throws(
     () => validate({ personal: {}, experience: [null] }),
@@ -42,7 +42,7 @@ test("El JSON original se importa sin perder campos y rechaza estructuras invál
 });
 
 test("Las secciones y elementos respetan el orden; se omite contenido oculto", () => {
-  const d = initialData();
+  const d = testCv();
   d._meta.order = ["education", "summary", "experience"];
   d._meta.hidden = ["memberships"];
   d.experience = move(d.experience, 0, 1);
@@ -53,19 +53,17 @@ test("Las secciones y elementos respetan el orden; se omite contenido oculto", (
   assert.equal(sectionKeys(d)[0], "education");
   const blocks = blocksOf(d);
   assert.equal(blocks.find((x) => x.kind === "heading").text, "Educación");
-  assert.ok(
-    !blocks.some((x) => x.text.includes("Círculo de Estudios de Compliance")),
-  );
+  assert.ok(!blocks.some((x) => x.text.includes("Asociación de prueba")));
   assert.ok(blocks.some((x) => x.text === "Artículo propio"));
   const entries = blocks.filter((x) => x.kind === "entry").map((x) => x.text);
   assert.ok(
-    entries.findIndex((x) => x.startsWith("KCM")) <
-      entries.findIndex((x) => x.startsWith("Notaría")),
+    entries.findIndex((x) => x.startsWith("Empresa Beta")) <
+      entries.findIndex((x) => x.startsWith("Empresa Alfa")),
   );
 });
 
 test("Word contiene texto, secciones personalizadas y formato editable, sin tablas", async () => {
-  const d = initialData();
+  const d = testCv();
   d.custom = [
     {
       name: "Reconocimiento académico",
@@ -83,7 +81,7 @@ test("Word contiene texto, secciones personalizadas y formato editable, sin tabl
 });
 
 test("PDF pagina textos extensos y conserva texto seleccionable", async () => {
-  const d = initialData();
+  const d = testCv();
   d.custom = [
     {
       name: "Texto extenso",
@@ -94,6 +92,6 @@ test("PDF pagina textos extensos y conserva texto seleccionable", async () => {
   assert.ok(pdf.getNumberOfPages() > 3);
   const content = pdf.output();
   assert.ok(content.startsWith("%PDF-"));
-  assert.ok(content.includes("Daniela Alexandra Llasac Navarro"));
+  assert.ok(content.includes("Persona de prueba"));
   assert.ok(!content.includes("/Subtype /Image"));
 });
