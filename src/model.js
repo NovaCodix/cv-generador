@@ -84,7 +84,7 @@ export const defaults = {
   margin: 18,
   paper: "a4",
 };
-// The application always starts from an empty schema, without bundled CV data.
+// Empty schema used by the clear action and by independently generated data.
 export function emptyData() {
   return {
     personal: {
@@ -124,6 +124,114 @@ export function emptyData() {
     },
   };
 }
+// Fictional demo data lives in application code, without external JSON files.
+export function exampleData() {
+  const data = emptyData();
+  data.personal = {
+    ...data.personal,
+    name: "Valeria Torres Mendoza",
+    title: "Analista de operaciones y mejora continua",
+    email: "valeria.torres@example.com",
+    phone: "+51 000 000 000",
+    location: "Lima, Perú",
+    website: "https://example.com/portafolio",
+    summary:
+      "Profesional de Administración con experiencia en análisis de procesos, seguimiento de indicadores y coordinación de proyectos. Especializada en convertir datos en mejoras operativas, con enfoque en eficiencia, colaboración y calidad de servicio.",
+  };
+  data.experience = [
+    {
+      company: "Empresa de Ejemplo S.A.C.",
+      position: "Analista de operaciones",
+      location: "Lima, Perú",
+      start_date: "marzo 2024",
+      end_date: "presente",
+      achievements: [
+        "Reduje en un 20 % el tiempo de preparación de reportes mediante la automatización de indicadores.",
+        "Coordiné mejoras de procesos con un equipo de 6 personas y seguimiento mensual de resultados.",
+      ],
+    },
+    {
+      company: "Consultora de Ejemplo",
+      position: "Asistente de proyectos",
+      location: "Lima, Perú",
+      start_date: "enero 2022",
+      end_date: "febrero 2024",
+      achievements: [
+        "Di seguimiento a 12 proyectos, documentando avances, entregables y oportunidades de mejora.",
+        "Elaboré reportes ejecutivos para facilitar la planificación y la toma de decisiones.",
+      ],
+    },
+  ];
+  data.education = [
+    {
+      institution: "Universidad de Ejemplo",
+      degree: "Bachiller en Administración",
+      start_date: "marzo 2017",
+      end_date: "diciembre 2021",
+      details:
+        "Formación en gestión empresarial, análisis de datos y dirección de proyectos.",
+    },
+  ];
+  data.skills = {
+    technical: [
+      "Microsoft Excel avanzado",
+      "Power BI",
+      "Análisis de indicadores",
+      "Gestión de proyectos",
+    ],
+    practices: [
+      "Mejora continua",
+      "Comunicación efectiva",
+      "Resolución de problemas",
+      "Trabajo colaborativo",
+    ],
+  };
+  data.languages = [
+    { language: "Español", level: "Nativo" },
+    { language: "Inglés", level: "Intermedio · B2" },
+  ];
+  data.certifications = [
+    {
+      name: "Gestión de proyectos y metodologías ágiles",
+      issuer: "Academia de Ejemplo",
+      date: "2024",
+      url: "",
+    },
+  ];
+  data.projects = [
+    {
+      name: "Panel de indicadores operativos",
+      description:
+        "Diseño de un tablero para centralizar el seguimiento de tiempos, calidad y cumplimiento de objetivos del equipo.",
+      tech: "Power BI · Excel",
+      url: "",
+    },
+  ];
+  data.volunteering = [
+    {
+      organization: "Red de Voluntariado de Ejemplo",
+      role: "Mentora de empleabilidad",
+      location: "Lima, Perú",
+      start_date: "2023",
+      end_date: "2024",
+      details:
+        "Acompañamiento a estudiantes en la preparación de currículums y entrevistas laborales.",
+    },
+  ];
+  data.memberships = [
+    {
+      organization: "Comunidad de Gestión de Ejemplo",
+      role: "Miembro",
+      start_date: "2024",
+      end_date: "presente",
+      details:
+        "Participación en encuentros de aprendizaje sobre innovación y gestión de procesos.",
+    },
+  ];
+  data._meta.example = true;
+  return data;
+}
+
 export function validate(data) {
   if (!data || typeof data !== "object" || Array.isArray(data))
     throw new Error("El CV debe ser un objeto JSON.");

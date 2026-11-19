@@ -35,6 +35,7 @@ import {
 } from "lucide-react";
 import {
   emptyData,
+  exampleData,
   validate,
   sectionKeys,
   titleOf,
@@ -71,9 +72,9 @@ const storageKey = "folio-cv-v1";
 function load() {
   try {
     const saved = localStorage.getItem(storageKey);
-    return saved ? validate(JSON.parse(saved)) : emptyData();
+    return saved ? validate(JSON.parse(saved)) : exampleData();
   } catch {
-    return emptyData();
+    return exampleData();
   }
 }
 
@@ -355,7 +356,10 @@ export default function App() {
         </a>
         <div className="header-divider" />
         <div className="project-name">
-          Mi currículum <span className="project-badge">PERSONAL</span>
+          Mi currículum{" "}
+          <span className="project-badge">
+            {data._meta?.example ? "EJEMPLO" : "PERSONAL"}
+          </span>
         </div>
         <div className="header-right">
           <button
@@ -382,6 +386,12 @@ export default function App() {
                 ? "Guardado en este navegador"
                 : "Guardando…"}
           </span>
+          <button
+            className="button clear-top"
+            onClick={() => setDeleteKey("$reset")}
+          >
+            <Trash2 size={16} /> Limpiar todo
+          </button>
           <button
             className="button secondary import-top"
             onClick={() => fileInput.current.click()}
@@ -562,10 +572,21 @@ export default function App() {
           <GripVertical size={14} /> Arrastra para cambiar el orden
         </p>
         <button
-          className="new-cv-button"
-          onClick={() => setDeleteKey("$reset")}
+          className="load-example-button"
+          onClick={() => {
+            const next = exampleData();
+            update(next);
+            setJson(JSON.stringify(next, null, 2));
+            setJsonError("");
+            setActive("personal");
+            setMode("visual");
+            setTab("content");
+            setToast(
+              "Ejemplo ficticio cargado. Reemplaza los datos con tu información.",
+            );
+          }}
         >
-          <Trash2 size={15} /> Limpiar todo
+          <FileText size={15} /> Cargar ejemplo
         </button>
         <div className="mobile-history">
           <button

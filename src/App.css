@@ -1789,3 +1789,65 @@ h2 {
     font-size: 12px;
   }
 }
+.button.clear-top {
+  color: #945349;
+  border-color: #e9cec7;
+  background: #fff7f4;
+}
+.button.clear-top:hover {
+  background: #fce9e3;
+}
+.load-example-button {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: transparent;
+  color: #627e5d;
+  font-size: 13px;
+  margin: 15px 9px 0;
+  padding: 10px;
+  border-radius: 6px;
+}
+.load-example-button:hover {
+  background: #eff4eb;
+}
+@media (max-width: 850px) {
+  .load-example-button {
+    display: inline-flex;
+    font-size: 12px;
+    margin: 4px 0 0;
+  }
+}
+@media (max-width: 680px) {
+  .app-header {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    height: auto;
+    padding: 13px 18px;
+    gap: 10px 12px;
+  }
+  .app-header > .brand {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .header-right {
+    display: contents;
+  }
+  .header-right > .clear-top {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+    font-size: 13px;
+  }
+  .header-right > .import-top {
+    grid-column: 1;
+    grid-row: 2;
+    font-size: 12px;
+    gap: 6px;
+  }
+  .header-right > .export-wrap {
+    grid-column: 2;
+    grid-row: 2;
+    justify-self: end;
+  }
+}

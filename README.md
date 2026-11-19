@@ -1,6 +1,6 @@
 # Folio · Generador de CV
 
-Aplicación React + Vite para crear currículums mediante formularios o JSON. Inicia con secciones vacías definidas en el código, sin datos personales ni archivos JSON precargados. Funciona en el navegador, sin backend ni cuentas.
+Aplicación React + Vite para crear currículums mediante formularios o JSON. En la primera visita muestra un CV ficticio de ejemplo definido en el código, sin depender de archivos JSON externos. «Limpiar todo», en la barra superior, deja las secciones vacías. Funciona en el navegador, sin backend ni cuentas.
 
 ## Ejecutar
 
@@ -137,4 +137,4 @@ La vista continua muestra contenido, orden y estilo. El PDF paginado es la refer
 
 En Vercel: framework Vite, comando `npm run build`, directorio de salida `dist`. Incluye en el repositorio `src`, `public`, `scripts`, las pruebas y los archivos de configuración/dependencias de la raíz. Las carpetas de ejemplos locales y los documentos generados no son necesarios para compilar ni ejecutar la aplicación.
 
-En la primera visita el CV está vacío. Si ya habías usado el editor en ese navegador, se restaura tu borrador local; usa «Limpiar todo» para empezar desde cero.
+En la primera visita se carga un CV ficticio marcado como «EJEMPLO». Si ya habías usado el editor en ese navegador, se restaura tu borrador local, aunque esté vacío. «Cargar ejemplo» permite recuperar la demostración y «Limpiar todo», en la barra superior, permite empezar desde cero. Los datos y las cifras del ejemplo son ficticios y deben reemplazarse antes de usar el CV.
